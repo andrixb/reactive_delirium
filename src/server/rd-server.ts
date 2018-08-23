@@ -3,15 +3,15 @@ import * as express from 'express';
 import * as helmet from 'helmet';
 import * as bodyParser from 'body-parser';
 
-import { Router } from './api';
-import { RoomSocket } from './api';
+import { APIRouter } from './api';
+import { RoomSocket } from './sockets';
 
 export class RDServer {
     public static readonly PORT:number = 1212;
     private app: express.Application;
     private server: Server;
     private port: string | number;
-    private router: Router;
+    private apiRouter: APIRouter;
     private roomSocket: RoomSocket;
 
     constructor() {
@@ -39,7 +39,7 @@ export class RDServer {
     }
 
     private createRouter(): void {
-        this.router = new Router(this.app);
+        this.apiRouter = new APIRouter(this.app);
     }
 
     private createSockets(): void {

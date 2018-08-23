@@ -1,2 +1,1 @@
-export { Router } from './router';
-export { RoomSocket } from './sockets';
+export { APIRouter } from './router';

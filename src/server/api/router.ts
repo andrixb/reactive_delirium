@@ -2,7 +2,7 @@ import * as express from 'express';
 
 import { HomeRoute, NotFoundRoute } from './routes';
 
-export class Router {
+export class APIRouter {
     private app: express.Application;
 
     constructor(app: express.Application) {

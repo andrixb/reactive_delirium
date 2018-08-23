@@ -1,7 +1,7 @@
 import { Server } from 'http';
 import * as socketIo from 'socket.io';
 
-import { Message } from '../models';
+import { Message } from './models';
 import { Topic } from './topic.enum';
 
 export class RoomSocket {
