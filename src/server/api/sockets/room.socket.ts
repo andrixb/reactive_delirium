@@ -1,7 +1,7 @@
 import { Server } from 'http';
 import * as socketIo from 'socket.io';
 
-import { Message } from '../../models';
+import { Message } from '../models';
 import { Topic } from './topic.enum';
 
 export class RoomSocket {
@@ -34,18 +34,18 @@ export class RoomSocket {
                 console.log('Joined room: %s', room);
             });
 
-            socket.on(Topic.SIGNATURE_COMPLETED, (room: any, message: Message) => {
-                console.log('Room', room, '| Topic', Topic.SIGNATURE_COMPLETED, '| Message', message)
+            socket.on(Topic.ACTION_COMPLETED, (room: any, message: Message) => {
+                console.log('Room', room, '| Topic', Topic.ACTION_COMPLETED, '| Message', message)
                 if (room) {
-                    this.io.in(room).emit(Topic.SIGNATURE_COMPLETED, message);
+                    this.io.in(room).emit(Topic.ACTION_COMPLETED, message);
                     console.log('[SERVER](message): %s', JSON.stringify(message));
                 }
             });
 
-            socket.on(Topic.SIGNATURE_CANCELED, (room: any, message: Message) => {
-                console.log('Room', room, '| Topic', Topic.SIGNATURE_CANCELED, '| Message', message)
+            socket.on(Topic.ACTION_CANCELED, (room: any, message: Message) => {
+                console.log('Room', room, '| Topic', Topic.ACTION_CANCELED, '| Message', message)
                 if (room) {
-                    this.io.in(room).emit(Topic.SIGNATURE_CANCELED, message);
+                    this.io.in(room).emit(Topic.ACTION_CANCELED, message);
                     console.log('[SERVER](message): %s', JSON.stringify(message));
                 }
             });

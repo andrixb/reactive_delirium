@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 
-import { Actions } from '../../models';
+import { Actions } from '../models';
 
 export class GetData extends Actions {
     private _reactor: BehaviorSubject<any>;

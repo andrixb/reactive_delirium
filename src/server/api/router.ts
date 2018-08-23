@@ -1,10 +1,9 @@
 import * as express from 'express';
 
-import { HomeRoute } from './routes/home.route';
+import { HomeRoute, NotFoundRoute } from './routes';
 
 export class Router {
     private app: express.Application;
-    private homeRoute: HomeRoute;
 
     constructor(app: express.Application) {
         this.app = app;
@@ -13,5 +12,6 @@ export class Router {
 
     private createRoutes() {
         new HomeRoute('ALL', '/', this.app);
+        new NotFoundRoute('GET', '*', this.app);
     }
 }

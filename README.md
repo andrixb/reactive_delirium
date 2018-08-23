@@ -4,3 +4,8 @@ https://developer.nrel.gov/api/alt-fuel-stations/v1.json?fuel_type=E85,ELEC&stat
 
 
 https://xgrommx.github.io/rx-book/content/subjects/behavior_subject/index.html
+
+
+https://www.codementor.io/mattgoldspink/nodejs-best-practices-du1086jja
+
+https://medium.com/@gwilakers/structuring-your-node-js-app-67d20c2ab8a3

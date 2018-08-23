@@ -1,0 +1,32 @@
+version: '3.3'
+
+services:
+  server:
+    build: . 
+    image: node:8
+    command: yarn watch:server
+    volumes: 
+      - ".:/var/www/code"
+    ports:
+      - 1212:1212
+    environment:
+      - INDEX_FILE=src/public/pages/index.html
+      - NOT_FOUND_FILE=src/public/pages/404.html
+    restart: always
+    networks:
+      - rd_net
+  
+  client:
+    build: .
+    image: node:8
+    command: tail -F anything
+    volumes: 
+      - ".:/var/www/code"
+    ports:
+      - 8800:80
+    restart: always
+    networks:
+      - rd_net
+
+networks:
+  rd_net:

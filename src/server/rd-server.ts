@@ -1,5 +1,7 @@
 import { createServer, Server } from 'http';
 import * as express from 'express';
+import * as helmet from 'helmet';
+import * as bodyParser from 'body-parser';
 
 import { Router } from './api';
 import { RoomSocket } from './api';
@@ -9,6 +11,7 @@ export class RDServer {
     private app: express.Application;
     private server: Server;
     private port: string | number;
+    private router: Router;
     private roomSocket: RoomSocket;
 
     constructor() {
@@ -26,6 +29,9 @@ export class RDServer {
 
     private createApp(): void {
         this.app = express();
+        this.app.use(helmet());
+        this.app.use(bodyParser.json());
+        this.app.use(bodyParser.urlencoded({ extended: true }));
     }
 
     private createServer(): void {
@@ -33,7 +39,7 @@ export class RDServer {
     }
 
     private createRouter(): void {
-        new Router(this.app);
+        this.router = new Router(this.app);
     }
 
     private createSockets(): void {
