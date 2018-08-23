@@ -4,16 +4,25 @@ import * as socketIo from 'socket.io';
 import { Message } from './models';
 import { Topic } from './topic.enum';
 
+import { ListenerService } from '../services';
+
 export class RoomSocket {
     private io: SocketIO.Server;
     private server: Server;
     private port: string | number;
     private room: string;
+    private listenerService: ListenerService;
 
     constructor(server: Server, port: string | number) {
         this.server = server;
         this.port = port;
-        
+
+        this.listenerService = ListenerService.getInstance();
+        this.listenerService.dispatcher.subscribe((value: any) => {
+            if (value === 'activate-listeners') {
+                this.socketListener();
+            }
+        });
         this.init();
     }
 
@@ -25,7 +34,7 @@ export class RoomSocket {
         this.io = socketIo(this.server);
     }
 
-    public socketListener(): void {
+    private socketListener(): void {
         this.io.on('connect', (socket: any) => {
             console.log('Connected client on port %s.', this.port);
 

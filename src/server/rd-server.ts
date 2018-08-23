@@ -6,6 +6,8 @@ import * as bodyParser from 'body-parser';
 import { APIRouter } from './api';
 import { RoomSocket } from './sockets';
 
+import { ListenerService } from './services';
+
 export class RDServer {
     public static readonly PORT:number = 1212;
     private app: express.Application;
@@ -13,6 +15,7 @@ export class RDServer {
     private port: string | number;
     private apiRouter: APIRouter;
     private roomSocket: RoomSocket;
+    private listenerService: ListenerService;
 
     constructor() {
         this.config();
@@ -25,6 +28,12 @@ export class RDServer {
     
     private config(): void {
         this.port = process.env.PORT || RDServer.PORT;
+        this.listenerService = ListenerService.getInstance();
+        this.listenerService.dispatcher.subscribe((value: any) => {
+            if (value === 'activate-listeners') {
+                this.serverListener();
+            } 
+        });
     }
 
     private createApp(): void {
@@ -53,8 +62,7 @@ export class RDServer {
     }
     
     private listen(): void { 
-        this.serverListener();
-        this.roomSocket.socketListener();
+        this.listenerService.notify.next('activate-listeners');
     }
 
     public getApp(): express.Application {
