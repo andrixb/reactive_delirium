@@ -1,3 +1,3 @@
 export class Routes {
-    constructor(private url: string, private app: any) {}
+    constructor(private type: string, private url: string, private app: any) {}
 }
