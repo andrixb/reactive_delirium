@@ -1,1 +1,1 @@
-export { Dispatcher } from './dispatcher.model';
+export { IDispatcher } from './idispatcher.interface';

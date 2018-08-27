@@ -1,24 +1,18 @@
 import * as express from 'express';
-import { Routes } from '../models';
+import { IRoutes } from '../models';
 import * as path from 'path'; 
 
-export class HomeRoute extends Routes {
-    private _app: express.Application;
-    private _url: string;
-    private _type: string;
-
-    constructor(type: string, url: string, appInstance: express.Application) {
-        super(type, url, appInstance);
-
-        this._app = appInstance;
-        this._url = url;
-        this._type = type;
-
+export class HomeRoute implements IRoutes {
+    constructor(
+        public type: string, 
+        public url: string, 
+        public app: express.Application
+    ) {
         this.init();
     }
 
     private init() {
-        switch(this._type) {
+        switch(this.type) {
             case 'ALL': 
                 this.createGet();
                 this.createPost();
@@ -35,17 +29,16 @@ export class HomeRoute extends Routes {
             default: 
                 break;
         }
-       
     }
 
     private createGet() {
-        this._app.get(this._url, (request: express.Request, response: express.Response) => { 
+        this.app.get(this.url, (request: express.Request, response: express.Response) => { 
             response.sendFile(path.resolve(process.env.INDEX_FILE));
         });
     }
 
     private createPost() {
-        this._app.post(this._url, (request: express.Request, response: express.Response) => { 
+        this.app.post(this.url, (request: express.Request, response: express.Response) => { 
             console.log('RECEIVED', request.body);
             response.sendStatus(200);
         });

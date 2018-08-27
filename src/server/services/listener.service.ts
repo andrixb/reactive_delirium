@@ -1,16 +1,16 @@
-import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 
-import { Dispatcher } from './models';
+import { IDispatcher } from './models';
 
 export class ListenerService {
     private static instance: ListenerService;
 
-    private _dispatcher: BehaviorSubject<Dispatcher>;
-    private _notify: BehaviorSubject<any>;
+    private _dispatcher: Subject<IDispatcher>;
+    private _notify: Subject<any>;
 
     constructor() {
-        this._dispatcher = new BehaviorSubject<Dispatcher>(null);
-        this._notify = new BehaviorSubject<any>(null);
+        this._dispatcher = new Subject<IDispatcher>();
+        this._notify = new Subject<any>();
 
         this.subscribeTo();
     }

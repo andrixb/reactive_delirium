@@ -1,16 +1,14 @@
-import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 
-import { Actions } from '../models';
+import { IActions } from '../models';
 
-export class GetData extends Actions {
-    private _reactor: BehaviorSubject<any>;
+export class GetData implements IActions {
+    private _reactor: Subject<any>;
 
     private URL = 'pvwatts/v5.';
 
-    constructor(label: string, url: string) {
-        super(label, url);
-
-        this._reactor = new BehaviorSubject<any>(null);
+    constructor(public label: string, public url: string) {
+        this._reactor = new Subject<any>();
         this.init();
     }
 

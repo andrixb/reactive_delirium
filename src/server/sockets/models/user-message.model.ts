@@ -1,7 +1,6 @@
-import { Message, User } from '.';
+import { IMessage, IUser } from '.';
 
-export class UserMessage extends Message{
-    constructor(from: User, content: string) {
-        super(from, content);
+export class UserMessage implements IMessage{
+    constructor(public from: IUser, public content: string) {
     }
 }

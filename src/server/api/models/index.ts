@@ -1,2 +1,2 @@
-export { Actions } from './actions.model';
-export { Routes } from './routes.model';
+export { IActions } from './iactions.interface';
+export { IRoutes } from './iroutes.interface';

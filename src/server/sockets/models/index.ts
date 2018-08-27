@@ -1,3 +1,3 @@
-export { Message } from './message.model';
+export { IMessage } from './imessage.interface';
 export { UserMessage } from './user-message.model';
-export { User } from './user.model';
+export { IUser } from './iuser.interface';

@@ -1,7 +1,7 @@
 import { Server } from 'http';
 import * as socketIo from 'socket.io';
 
-import { Message } from './models';
+import { IMessage } from './models';
 import { Topic } from './topic.enum';
 
 import { ListenerService } from '../services';
@@ -43,7 +43,7 @@ export class RoomSocket {
                 console.log('Joined room: %s', room);
             });
 
-            socket.on(Topic.ACTION_COMPLETED, (room: any, message: Message) => {
+            socket.on(Topic.ACTION_COMPLETED, (room: any, message: IMessage) => {
                 console.log('Room', room, '| Topic', Topic.ACTION_COMPLETED, '| Message', message)
                 if (room) {
                     this.io.in(room).emit(Topic.ACTION_COMPLETED, message);
@@ -51,7 +51,7 @@ export class RoomSocket {
                 }
             });
 
-            socket.on(Topic.ACTION_CANCELED, (room: any, message: Message) => {
+            socket.on(Topic.ACTION_CANCELED, (room: any, message: IMessage) => {
                 console.log('Room', room, '| Topic', Topic.ACTION_CANCELED, '| Message', message)
                 if (room) {
                     this.io.in(room).emit(Topic.ACTION_CANCELED, message);
