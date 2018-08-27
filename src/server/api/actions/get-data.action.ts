@@ -1,22 +1,26 @@
-import { Subject } from 'rxjs';
+import { Observable } from 'rxjs';
+import axios from 'axios';
 
 import { IActions } from '../models';
 
 export class GetData implements IActions {
-    private _reactor: Subject<any>;
+    private _fetchSubscription: Observable<any>;
 
-    private URL = 'pvwatts/v5.';
-
-    constructor(public label: string, public url: string) {
-        this._reactor = new Subject<any>();
-        this.init();
+    constructor(public url: string) {
+        this._fetchSubscription = new Observable<any>();
     }
 
-    private init() {
-        console.log();
+    async get(url: string) {
+        try {
+            const response = await axios.get(url);
+            const data = response.data;
+            console.log(data);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
-    get reactor() {
-        return this._reactor;
+    get fetchSubscription() {
+        return this._fetchSubscription;
     }
 }

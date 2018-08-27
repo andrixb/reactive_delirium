@@ -1,5 +1,5 @@
 export interface IActions {
-   label: string; 
-   url: string; 
-   callback?: any;
+    url: string; 
+    label?: string; 
+    callback?: any;
 }

@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-import { HomeRoute, NotFoundRoute } from './routes';
+import { HomeRoute, TestRoute, NotFoundRoute } from './routes';
 
 export class APIRouter {
     private app: express.Application;
@@ -12,6 +12,7 @@ export class APIRouter {
 
     private createRoutes() {
         new HomeRoute('ALL', '/', this.app);
+        new TestRoute('GET','/test',this.app);
         new NotFoundRoute('GET', '*', this.app);
     }
 }
