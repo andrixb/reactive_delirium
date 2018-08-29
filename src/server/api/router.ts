@@ -12,7 +12,7 @@ export class APIRouter {
 
     private createRoutes() {
         new HomeRoute('ALL', '/', this.app);
-        new TestRoute('GET','/test',this.app);
+        new TestRoute('GET','/test', this.app);
         new NotFoundRoute('GET', '*', this.app);
     }
 }

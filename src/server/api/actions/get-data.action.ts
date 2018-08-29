@@ -1,26 +1,27 @@
-import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 import axios from 'axios';
 
 import { IActions } from '../models';
 
 export class GetData implements IActions {
-    private _fetchSubscription: Observable<any>;
+    private _fetchSubscription: Subject<any>;
 
-    constructor(public url: string) {
-        this._fetchSubscription = new Observable<any>();
+    constructor(public url?: string) {
+        this._fetchSubscription = new Subject<any>();
     }
 
-    async get(url: string) {
+    public async get(url: string): Promise<any> {
         try {
             const response = await axios.get(url);
-            const data = response.data;
-            console.log(data);
+            this._fetchSubscription.next(response.data);
+            return response.data;
         } catch (error) {
             console.log(error);
+            this._fetchSubscription.next(error);
         }
     }
 
-    get fetchSubscription() {
+    get fetchSubscription(): Subject<any> {
         return this._fetchSubscription;
     }
 }
