@@ -1,6 +1,7 @@
 import * as express from 'express';
 import { IRoutes } from '../models';
 import { GetData } from '../actions';
+import { GetResponse } from '../models';
 
 export class TestRoute implements IRoutes {
     private getDataAction: GetData;
@@ -15,21 +16,8 @@ export class TestRoute implements IRoutes {
         this.app.get(this.url, (request: express.Request, response: express.Response) => { 
             this.getDataAction.get(this.URL_TEST);
             this.getDataAction.fetchSubscription.subscribe((value) => {
-                const res = value.response;
-                response.send({ 
-                    status: 200,
-                    message: res.status,
-                    payload: { 
-                        results: res.results,
-                        pagination: { 
-                            pageSize: res.pageSize,
-                            currentPage: res.currentPage,
-                            pages: res.pages,
-                            total: res.total,
-                            orderBy: res.orderBy
-                       }
-                    }
-                });
+                const res = new GetResponse(value.response);
+                response.send(res.getData());
             });
         });
     }
